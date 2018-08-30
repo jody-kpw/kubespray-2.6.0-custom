@@ -131,3 +131,63 @@ bin_dir: /usr/local/bin
 
 # The read-only port for the Kubelet to serve on with no authentication/authorization. Uncomment to enable.
 #kube_read_only_port: 10255
+
+## Custom variables.
+
+## roles->kubernetes->preinstall->defaults->main.yml
+preinstall_selinux_state: disabled
+
+## roles->kubernetes->master->defaults->main.yml
+# Limits for kube components
+kube_controller_memory_limit: 1G #512M
+kube_controller_cpu_limit: 500m #250m
+kube_controller_memory_requests: 200M #100M
+kube_controller_cpu_requests: 200m #100m
+kube_controller_node_monitor_grace_period: 40s
+kube_controller_node_monitor_period: 5s
+kube_controller_pod_eviction_timeout: 5m0s
+kube_scheduler_memory_limit: 1G #512M
+kube_scheduler_cpu_limit: 500m #250m
+kube_scheduler_memory_requests: 340M #170M
+kube_scheduler_cpu_requests: 160m #80m
+kube_apiserver_memory_limit: 4000M #2000M
+kube_apiserver_cpu_limit: 1600m #800m
+kube_apiserver_memory_requests: 500M #256M
+kube_apiserver_cpu_requests: 200m #100m
+
+## roles->kubernetes->node->defaults->main.yml
+# Reserve this space for kube resources
+kube_memory_reserved: 500M #256M
+kube_cpu_reserved: 200m #100m
+# Reservation for master hosts
+kube_master_memory_reserved: 1G #512M
+kube_master_cpu_reserved: 400m #200m
+
+kubelet_status_update_frequency: 10s
+
+# Limits for kube components and nginx load balancer app
+kube_proxy_memory_limit: 4000M #2000M
+kube_proxy_cpu_limit: 1000m #500m
+kube_proxy_memory_requests: 128M #64M
+kube_proxy_cpu_requests: 300m #150m
+nginx_memory_limit: 1G #512M
+nginx_cpu_limit: 600m #300m
+nginx_memory_requests: 64M #32M
+nginx_cpu_requests: 50m #25m
+
+## roles->kubernetes-apps->ansible->defaults->main.yml
+# CoreDNS
+coredns_replicas: 3 #2
+
+# Limits for dashboard
+dashboard_cpu_limit: 200m #100m
+dashboard_memory_limit: 500M #256M
+dashboard_cpu_requests: 100m #50m
+dashboard_memory_requests: 128M #64M
+
+## roles->network_plugin->flannel->defaults->main.yml
+# Limits for apps
+flannel_memory_limit: 1G #500M
+flannel_cpu_limit: 600m #300m
+flannel_memory_requests: 128M #64M
+flannel_cpu_requests: 300m #150m
